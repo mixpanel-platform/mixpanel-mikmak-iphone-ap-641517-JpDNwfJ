@@ -43,18 +43,18 @@
         });
         
         //Set global variables
-        var output = {}
+        var output = {};
         
         //convenience method for grabbing that datepicker value
         getDates = function() {
-          return dateSelect.MPDatepicker('value')
-        }
+          return dateSelect.MPDatepicker('value');
+        };
 
         //find interval for bar chart 'interval' param
         getInterval = function(dates) {
-          intervalDays = Math.ceil((dates.to - dates.from) / (24 * 60 * 60 * 1000)) + 1
-          return intervalDays
-        }
+          intervalDays = Math.ceil((dates.to - dates.from) / (24 * 60 * 60 * 1000)) + 1;
+          return intervalDays;
+        };
 
         var runQuery = function() {
           //obtain event, property, date range and type values
@@ -73,6 +73,7 @@
             
             //get the data from the API and reorganize the data
             MP.api.propertyValues(eventName, propName, params).done(function(results) {
+              debugger;
               console.log(results.values());
             });
           };
