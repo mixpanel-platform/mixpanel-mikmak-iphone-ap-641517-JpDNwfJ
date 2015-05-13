@@ -45,6 +45,7 @@
         //set global variables
         var propertyList = [];
         var eventList = ['Video Played', 'Faved', 'Added to Cart' ];
+        var output = {};
         
         //convenience method for grabbing that datepicker value
         getDates = function() {
@@ -101,9 +102,14 @@
               _.each(propList, function(property) {
                 _.each(eventList, function(event) {
                   MP.api.segment(event, property, params).done(function(results) {
-                    console.log(event);
-                    console.log(property);
-                    console.log(results.values());
+                    var data = results.values()["undefined"]
+                    _.each(_.keys(data), function(counts) {
+                      debugger;
+                    }
+                    
+                    )
+                    var date = Object.keys(data)
+                    output[event] = 
                     debugger;
                   }); 
                 });
