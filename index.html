@@ -92,12 +92,10 @@
                   });
                });
               });
-              
-              
             };
             
             //retrieve top property data
-            function getProperties {
+            function getProperties() {
               MP.api.propertyValues(eventName, propName, params).done(function(results) {
                 var list = [];
                 var query = results.values();
