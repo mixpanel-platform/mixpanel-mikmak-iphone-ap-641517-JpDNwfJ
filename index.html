@@ -92,31 +92,23 @@
             
             //
             function runCount(eveList, propList) {
-              var apiList = [];
               console.log(eveList);
               console.log(propList);
-              _.each(propList, function(property) {
-                _.each(eventList, function(event) {
-                  var results = totalValues(event, property);
-                  debugger;
-                });
-             });
-            };
-            
-            //retrieve count data
-            function totalValues(eventSelected, propertySelected) {
-              var query = [];
               var params =  $.extend({}, dates, {
                 'type': typeName,
                 'interval': getInterval(dates)
               });
-              MP.api.segment(eventSelected, propertySelected, params).done(function(results) {
-                query.push(results.values());
-                debugger;
-              }); 
-              debugger;
-              return query;
+              _.each(propList, function(property) {
+                _.each(eventList, function(event) {
+                  MP.api.segment(eventSelected, propertySelected, params).done(function(results) {
+                    console.log(results.values());
+                    debugger;
+                  }); 
+                });
+             });
             };
+            
+            
             
             
             
