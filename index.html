@@ -70,22 +70,11 @@
           //set parameters for multisegmentation API
           if (eventName && propName) {
             var dates = getDates();
-            getTopTenProperties();
-            debugger;
+            getData();
             
-            /*$.when(propertyList).done(function(properties) {
-              debugger;
-              _.each(properties, function(property) {
-                debugger;
-                _.each(eventList, function(event) {
-                  debugger;
-                  getData (event, property);
-                });
-              });
-            });*/
-            
-            //get the top ten properties
-            function getTopTenProperties() {
+            //access the API to grab the data
+            function getData() {
+              var output = {};
               var params =  $.extend({}, dates, {
                 'limit' : 10,
                 'interval': getInterval(dates)
@@ -97,17 +86,14 @@
                   var property = query[properties];
                   list.push(property);
                 });
-                debugger;
                 return(list)
                 console.log(list)
               });
-              debugger;
               $.when(propertyList).done(function(properties) {
                 _.each(propertyList, function(property) {
-                  debugger;
                   _.each(eventList, function(event) {
                     debugger;
-                    getData (event, property);
+                    totalValues (event, property);
                   });
                });
               });
@@ -116,7 +102,7 @@
             };
             
             //retrieve the data for the graph
-            function getData(eventSelected, propertySelected) {
+            function totalValues(eventSelected, propertySelected) {
               var params =  $.extend({}, dates, {
                 'type': typeName,
                 'interval': getInterval(dates)
