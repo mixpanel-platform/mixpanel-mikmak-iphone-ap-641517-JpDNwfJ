@@ -75,7 +75,9 @@
             //access the API to grab the data
             function getData() {
               var output = {};
+              getProperties();
               getProperties().done(runCount(eventList, propertyList))
+
             };
               
               
