@@ -100,7 +100,7 @@
               });
               _.each(propList, function(property) {
                 _.each(eventList, function(event) {
-                  MP.api.segment(eventSelected, propertySelected, params).done(function(results) {
+                  MP.api.segment(event, property, params).done(function(results) {
                     console.log(results.values());
                     debugger;
                   }); 
