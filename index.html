@@ -43,7 +43,7 @@
         });
         
         //Set global variables
-        //var propertyList = [];
+        var propertyList = [];
         var eventList = ['Video Played', 'Faved', 'Added to Cart' ];
         
         //convenience method for grabbing that datepicker value
@@ -88,7 +88,7 @@
                 var propertyList = [];
                 _.each(_.keys(query), function(properties){
                   var property = query[properties];
-                  propertyList.push[property];
+                  propertyList.push(property);
                   console.log(propertyList)
                 });
                 console.log(propertyList)
