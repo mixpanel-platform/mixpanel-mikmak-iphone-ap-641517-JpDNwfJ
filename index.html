@@ -104,26 +104,10 @@
               _.each(propList, function(property) {
                 _.each(eventList, function(event) {
                   queryList.push(MP.api.segment(event, property, params));
-                  
-                  /*.done(function(results) {
-                    if (!output[event]) {
-                      output[event] = {};
-                    };
-                    
-                    var data = results.values()["undefined"];
-                    var sum = 0;
-                    _.each(_.keys(data), function(date) {
-                      sum = sum + data[date]
-                    });
-                      
-                    output[event][property] = sum
-                    console.log(output)
-                  });*/
                 });
               });
+              
               Promise.all(queryList).then(function(promiseList){
-                console.log(promiseList);
-                
                 _.each(promiseList, function(promise){
                   _.each(propList, function(property) {
                     
@@ -143,7 +127,7 @@
                 });
                 
               });
-              
+              console.log(output)
             };
             
           };
