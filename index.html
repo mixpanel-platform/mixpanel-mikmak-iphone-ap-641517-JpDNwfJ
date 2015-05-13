@@ -92,8 +92,8 @@
               $.when(propertyList).done(function(properties) {
                 _.each(propertyList, function(property) {
                   _.each(eventList, function(event) {
+                    var results = totalValues (event, property);
                     debugger;
-                    totalValues (event, property);
                   });
                });
               });
@@ -107,11 +107,9 @@
                 'type': typeName,
                 'interval': getInterval(dates)
               });
-              
               MP.api.segment(eventSelected, propertySelected, params).done(function(results) {
                 var query = results.values()
-                console.log(query)
-                debugger;
+                return query;
               });
             };
             
