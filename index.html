@@ -90,8 +90,10 @@
                 console.log(list)
               });
               $.when(propertyList).done(function(properties) {
+                
                 _.each(propertyList, function(property) {
                   var prop = property;
+                  debugger;
                   _.each(eventList, function(event) {
                     var results = totalValues (event, prop);
                     debugger;
