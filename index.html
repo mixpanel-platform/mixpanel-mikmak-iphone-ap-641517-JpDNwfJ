@@ -124,6 +124,7 @@
              Promise.all(queryList).then(function(promiseList){
                console.log(promiseList);
                _.each(promiseList, function(promise){
+                 debugger;
                  console.log(promise.values())
                  console.log(promise.values()['undefined']);
                })
