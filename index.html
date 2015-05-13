@@ -80,7 +80,7 @@
                 var query = results.values();
                 _.each(_.keys(query), function(properties){
                   var property = query[properties];
-                  propertyList[property] = {};
+                  propertyList[property];
                 });
                 console.log(propertyList)
                 debugger;
@@ -89,13 +89,13 @@
             
             //
             function getData(eventSelected, propertySelected) {
-              var endpoint = '/api/2.0/segmentation/multiseg';
               var params =  $.extend({}, dates, {
                 'type': typeName,
                 'interval': getInterval(dates)
               });
               
               MP.api.segment(eventSelected, propertySelected, params).done(function(results) {
+                debugger;
                 var query = results["data"]["values"]
                 
               });
