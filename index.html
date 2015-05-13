@@ -58,6 +58,7 @@
         
         //get the top ten properties
         function getTopTenProperties() {
+          var dates = getDates();
           var params =  $.extend({}, dates, {
             'limit' : 10,
             'interval': getInterval(dates)
@@ -74,7 +75,8 @@
             return list;
           });
         };
-
+        
+        
         var runQuery = function() {
           //obtain event, property, date range and type values
           var eventName = eventSelect.MPEventSelect('value'),
