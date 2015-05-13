@@ -79,20 +79,8 @@
                 'limit' : 10,
                 'interval': getInterval(dates)
               });
-              MP.api.propertyValues(eventName, propName, params).done(function(results) {
-                var query = results.values();
-                _.each(_.keys(query), function(properties){
-                  var property = query[properties];
-                  propertyList.push(property);
-                });
-                console.log(propertyList);
-              });
               
-              console.log(propertyList);
-              
-              
-              
-              //var propertyList = getProperties();
+              var propertyList = getProperties();
               //console.log(propertyList);
               
               $.when(propertyList).done(function(properties) {
@@ -122,7 +110,7 @@
                   list.push(property);
                 });
               });
-              return(list);
+              return list;
               console.log(list);
               debugger;
             };
