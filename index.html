@@ -55,6 +55,25 @@
           intervalDays = Math.ceil((dates.to - dates.from) / (24 * 60 * 60 * 1000)) + 1;
           return intervalDays;
         };
+        
+        //get the top ten properties
+        function getTopTenProperties() {
+          var params =  $.extend({}, dates, {
+            'limit' : 10,
+            'interval': getInterval(dates)
+          });
+          MP.api.propertyValues(eventName, propName, params).done(function(results) {
+            var list = [];
+            var query = results.values();
+            var propertyList = [];
+            _.each(_.keys(query), function(properties){
+              var property = query[properties];
+                list.push(property);
+                debugger;
+                });
+                return list;
+              });
+            };
 
         var runQuery = function() {
           //obtain event, property, date range and type values
@@ -79,24 +98,7 @@
               });
             });
             
-            //get the top ten properties
-            function getTopTenProperties() {
-              var params =  $.extend({}, dates, {
-                'limit' : 10,
-                'interval': getInterval(dates)
-              });
-              MP.api.propertyValues(eventName, propName, params).done(function(results) {
-                var list = []
-                var query = results.values();
-                var propertyList = [];
-                _.each(_.keys(query), function(properties){
-                  var property = query[properties];
-                  list.push(property);
-                  debugger;
-                });
-                return list;
-              });
-            };
+            
             
             //
             function getData(eventSelected, propertySelected) {
