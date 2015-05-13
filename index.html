@@ -89,7 +89,7 @@
                 return(list)
                 console.log(list)
               });
-              $.when(propertyList).done(function(properties) {
+              $.when(propertyList).done(function(properties, list) {
                 debugger;
                 _.each(propertyList, function(property) {
                   var prop = property;
