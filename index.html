@@ -109,7 +109,6 @@
               Promise.all(queryList).then(function(promiseList){
                 _.each(promiseList, function(promise){
                   _.each(propList, function(property) {
-                    
                     _.each(eventList, function(event) {
                       if (!output[event]) {
                         output[event] = {};
@@ -118,6 +117,7 @@
                       var sum = 0;
                       _.each(_.keys(data), function(date) {
                         sum = sum + data[date]
+                        debugger;
                       });
                       output[event][property] = sum
                     });
@@ -127,6 +127,7 @@
                 
               });
               console.log(output)
+              debugger;
             };
             
           };
