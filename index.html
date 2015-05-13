@@ -75,10 +75,7 @@
             //access the API to grab the data
             function getData() {
               var output = {};
-              var params =  $.extend({}, dates, {
-                'limit' : 10,
-                'interval': getInterval(dates)
-              });
+              
               var propertyList = getProperties();
               
               $.when(propertyList).done(function(properties) {
@@ -96,6 +93,10 @@
             
             //retrieve top property data
             function getProperties() {
+              var params =  $.extend({}, dates, {
+                'limit' : 10,
+                'interval': getInterval(dates)
+              });
               MP.api.propertyValues(eventName, propName, params).done(function(results) {
                 var list = [];
                 var query = results.values();
