@@ -69,13 +69,13 @@
             var dates = getDates();
             getTopTenProperties();
             debugger;
-            /*_.each(propertyList, function(property) {
+            _.each(propertyList, function(property) {
               debugger;
               _.each(eventList, function(event) {
                 debugger;
                 getData (event, property);
               });
-            });*/
+            });
             
             //get the top ten properties
             function getTopTenProperties() {
@@ -89,9 +89,7 @@
                 _.each(_.keys(query), function(properties){
                   var property = query[properties];
                   propertyList.push(property);
-                  console.log(propertyList)
                 });
-                console.log(propertyList)
               });
             };
             
