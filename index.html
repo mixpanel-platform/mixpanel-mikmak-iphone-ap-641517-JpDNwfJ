@@ -89,6 +89,7 @@
                 _.each(_.keys(query), function(properties){
                   var property = query[properties];
                   propertyList.push(property);
+                  debugger;
                 });
               });
             };
@@ -103,6 +104,7 @@
               MP.api.segment(eventSelected, propertySelected, params).done(function(results) {
                 var query = results.values()
                 console.log(query)
+                debugger;
               });
             };
             
