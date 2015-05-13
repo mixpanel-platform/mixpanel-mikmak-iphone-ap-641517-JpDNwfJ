@@ -75,7 +75,6 @@
             
             //access the API to grab the data
             function getData() {
-              var output = {};
               var params =  $.extend({}, dates, {
                 'limit' : 10,
                 'interval': getInterval(dates)
@@ -108,6 +107,7 @@
               
               Promise.all(queryList).then(function(promiseList){
                 _.each(promiseList, function(promise){
+                  
                   _.each(propList, function(property) {
                     _.each(eventList, function(event) {
                       if (!output[event]) {
@@ -118,7 +118,7 @@
                       _.each(_.keys(data), function(date) {
                         sum = sum + data[date];
                       });
-                      output[event][property] = sum;
+                      output[event][property] = 0;
                       console.log(event)
                       console.log(property)
                       console.log(output)
