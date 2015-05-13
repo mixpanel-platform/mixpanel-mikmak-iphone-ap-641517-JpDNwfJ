@@ -101,6 +101,8 @@
               _.each(propList, function(property) {
                 _.each(eventList, function(event) {
                   MP.api.segment(event, property, params).done(function(results) {
+                    console.log(event);
+                    console.log(property);
                     console.log(results.values());
                     debugger;
                   }); 
