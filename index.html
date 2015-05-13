@@ -75,30 +75,13 @@
             //access the API to grab the data
             function getData() {
               var output = {};
-              var params =  $.extend({}, dates, {
-                'limit' : 10,
-                'interval': getInterval(dates)
-              });
+              getProperties().done(runCount(eventList, propertyList))
               
-              var propertyList = getProperties();
-              //console.log(propertyList);
               
-              $.when(propertyList).done(function(properties) {
-                debugger;
-                _.each(propertyList, function(property) {
-                  var prop = property;
-                  debugger;
-                  _.each(eventList, function(event) {
-                    var results = totalValues (event, prop);
-                    debugger;
-                  });
-               });
-              });
-            };
             
             //retrieve top property data
             function getProperties() {
-              var list = [];
+              var r = $.Deferred();
               var params =  $.extend({}, dates, {
                 'limit' : 10,
                 'interval': getInterval(dates)
@@ -107,12 +90,24 @@
                 var query = results.values();
                 _.each(_.keys(query), function(properties){
                   var property = query[properties];
-                  list.push(property);
+                  propertyList.push(property);
                 });
+                r.resolve();
               });
-              return list;
-              console.log(list);
+              return r;
               debugger;
+            };
+            
+            //
+            function runCount(eveList, propList) {
+              debugger;
+              _.each(propList, function(property) {
+                debugger;
+                _.each(eventList, function(event) {
+                  var results = totalValues (event, property);
+                  debugger;
+                });
+             });
             };
             
             //retrieve count data
