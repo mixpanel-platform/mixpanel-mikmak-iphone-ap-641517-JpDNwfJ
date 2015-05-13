@@ -75,7 +75,16 @@
             //access the API to grab the data
             function getData() {
               var output = {};
-              getProperties().done(runCount(eventList, propertyList));
+              // getProperties().done(runCount(eventList, propertyList));
+              getProperties().done(function(data){
+                var results = data.values();
+                 _.each(_.keys(results), function(properties){
+                  var property = results[properties];
+                  propertyList.push(property);
+                
+                });
+                debugger;
+              })          
             };
               
             
@@ -85,15 +94,8 @@
                 'limit' : 10,
                 'interval': getInterval(dates)
               });
-              var apiCall = MP.api.propertyValues(eventName, propName, params).done(function(results) {
-                var query = results.values();
-                _.each(_.keys(query), function(properties){
-                  var property = query[properties];
-                  propertyList.push(property);
-                });
-              });
-              return apiCall;
-              debugger;
+              return MP.api.propertyValues(eventName, propName, params);
+              
             };
             
             //
