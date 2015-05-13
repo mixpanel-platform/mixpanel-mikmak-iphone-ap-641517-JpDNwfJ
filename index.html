@@ -43,7 +43,7 @@
         });
         
         //set global variables
-        //var propertyList = [];
+        var propertyList = [];
         var eventList = ['Video Played', 'Faved', 'Added to Cart' ];
         
         //convenience method for grabbing that datepicker value
@@ -75,9 +75,24 @@
             //access the API to grab the data
             function getData() {
               var output = {};
+              var params =  $.extend({}, dates, {
+                'limit' : 10,
+                'interval': getInterval(dates)
+              });
+              MP.api.propertyValues(eventName, propName, params).done(function(results) {
+                var query = results.values();
+                _.each(_.keys(query), function(properties){
+                  var property = query[properties];
+                  propertyList.push(property);
+                });
+              });
               
-              var propertyList = getProperties();
               console.log(propertyList);
+              
+              
+              
+              //var propertyList = getProperties();
+              //console.log(propertyList);
               
               $.when(propertyList).done(function(properties) {
                 debugger;
@@ -108,6 +123,7 @@
               });
               return(list);
               console.log(list);
+              debugger;
             };
             
             //retrieve count data
