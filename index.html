@@ -42,7 +42,7 @@
           showPercentages: false,
         });
         
-        //Set global variables
+        //set global variables
         var eventList = ['Video Played', 'Faved', 'Added to Cart' ];
         
         //convenience method for grabbing that datepicker value
@@ -96,14 +96,24 @@
                 _.each(_.keys(query), function(properties){
                   var property = query[properties];
                   list.push(property);
-                  debugger;
                 });
+                debugger;
                 console.log(list)
                 return list;
               });
+              
+              _.each(properties, function(property) {
+                debugger;
+                _.each(eventList, function(event) {
+                  debugger;
+                  getData (event, property);
+                });
+              });
+              
+              
             };
             
-            //
+            //retrieve the data for the graph
             function getData(eventSelected, propertySelected) {
               var params =  $.extend({}, dates, {
                 'type': typeName,
