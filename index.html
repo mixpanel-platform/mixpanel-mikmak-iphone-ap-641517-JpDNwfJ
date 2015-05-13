@@ -17,9 +17,6 @@
       <div id="propSelect" style="float: left;"></div>
       <div id="dateSelect" style="float: right;"></div><br/><br/><br/>
       
-      <div id="byTwo" class="mixpanel-platform-label" style="margin-left: 270px; display: none;">and</div>
-      <div id="propSelectTwo" style="float: left;"></div>
-      
       <div id="mpselect" style="float: right;"></div><br/><br/><br/>
       <div style="clear: both;"></div>
       <div id="graph"></div>
@@ -28,7 +25,6 @@
     <div id="table"></div>
     <script>
       MP.api.ready(function() {
-        
         var options = {
           items: [
             {label: 'Total', value: 'general'},
@@ -38,7 +34,6 @@
         };
         var eventSelect = $('#eventSelect').MPEventSelect();
         var propSelect  = $('#propSelect').MPPropertySelect();
-        var propSelectTwo  = $('#propSelectTwo').MPPropertySelect();
         var dateSelect  = $('#dateSelect').MPDatepicker();
         var typeSelect  = $('#mpselect').MPSelect(options);
         var eventGraph  = $('#graph').MPChart({chartType: 'bar'});
@@ -47,6 +42,8 @@
           showPercentages: false,
         });
         
+        //Set global variables
+        var output = {}
         
         //convenience method for grabbing that datepicker value
         getDates = function() {
@@ -63,25 +60,26 @@
           //obtain event, property, date range and type values
           var eventName = eventSelect.MPEventSelect('value'),
               propName  = propSelect.MPPropertySelect('value'),
-              propNameTwo = propSelectTwo.MPPropertySelect('value')
               dateRange = dateSelect.MPDatepicker('value'),
               typeName  = typeSelect.MPSelect('value');
               
           //set parameters for multisegmentation API
           if (eventName && propName && propNameTwo) {
-            var endpoint = '/api/2.0/segmentation/multiseg';
             var dates = getDates();
             var params =  $.extend({}, dates, {
-              'type': typeName,
-              'inner': 'properties[\"' + propNameTwo + '\"]',
-              'outer': 'properties[\"' + propName + '\"]',
-              'event': eventName,
+              'limit' : 10,
               'interval': getInterval(dates)
             });
             
             //get the data from the API and reorganize the data
-            MP.api.query(endpoint, params).done(function(results) {
-              var output = {}
+            MP.api.propertyValues(eventName, propName, params).done(function(results) {
+              console.log(results.values());
+            });
+          };
+        };
+            
+              
+              /*var output = {}
               var query = results["data"]["values"]
               
               _.each(_.keys(query), function(properties){
@@ -116,17 +114,14 @@
               eventTable.MPTable('setData', results);
             });
           }
-        };
+        };*/
         
         //actions when dropdowns change
         eventSelect.on('change', function(e, eventName) {
           propSelect.MPPropertySelect('setEvent', eventName);
           $("#by").show();
-          propSelectTwo.MPPropertySelect('setEvent', eventName);
-          $("#byTwo").show();
           runQuery();
         });
-        propSelectTwo.on('change', runQuery);
         dateSelect.on('change', runQuery);
         typeSelect.on('change', runQuery);
       });
