@@ -100,7 +100,6 @@
                 'type': typeName,
                 'interval': getInterval(dates)
               });
-              debugger;
               _.each(propList, function(property) {
                 _.each(eventList, function(event) {
                   queryList.push(MP.api.segment(event, property, params));
