@@ -120,85 +120,35 @@
                     console.log(output)
                   });*/
                 });
-             });
-             Promise.all(queryList).then(function(promiseList){
-               console.log(promiseList);
-               _.each(promiseList, function(promise){
-                 debugger;
-                 console.log(promise.values())
-                 console.log(promise.values()['undefined']);
-               })
-             })
-            };
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-              /*_.each(_.keys(query), function(properties){
-                var property = query[properties]
+              });
+              Promise.all(queryList).then(function(promiseList){
+                console.log(promiseList);
                 
-                _.each(_.keys(property), function(propertiesTwo){
-                  if (!output[propertiesTwo]) {
-                    output[propertiesTwo] = {}
-                  }
-                  var propertyTwo = property[propertiesTwo]
-                  var sum = 0;
-                
-                  _.each(_.keys(propertyTwo), function(dates){
-                    sum = sum + propertyTwo[dates]
+                _.each(promiseList, function(promise){
+                  _.each(propList, function(property) {
+                    
+                    _.each(eventList, function(event) {
+                      if (!output[event]) {
+                        output[event] = {};
+                      };
+                      var data = promise.values()["undefined"];
+                      var sum = 0;
+                      _.each(_.keys(data), function(date) {
+                        sum = sum + data[date]
+                      });
+                      output[event][property] = sum
+                    });
+                  
                   });
-                  
-                  output[propertiesTwo][properties] = sum;
-                  
                 });
-              });*/
-          };
-            
-        };
-            
-              
-              /*var output = {}
-              var query = results["data"]["values"]
-              
-              _.each(_.keys(query), function(properties){
-                var property = query[properties]
                 
-                _.each(_.keys(property), function(propertiesTwo){
-                  if (!output[propertiesTwo]) {
-                    output[propertiesTwo] = {}
-                  }
-                  var propertyTwo = property[propertiesTwo]
-                  var sum = 0;
-                
-                  _.each(_.keys(propertyTwo), function(dates){
-                    sum = sum + propertyTwo[dates]
-                  });
-                  
-                  output[propertiesTwo][properties] = sum;
-                  
-                });
               });
               
-              console.log(output)
-              
-              //create graph and table
-              eventStackedGraph.MPChart('setData', output);  
-              eventTable.MPTable('setData', output);
-              
-            });
-          } else if (eventName && propName) {
-            MP.api.segment(eventName, propName, dateRange).done(function(results) {
-              eventGraph.MPChart('setData', results);
-              eventTable.MPTable('setData', results);
-            });
-          }
-        };*/
+            };
+            
+          };
+          
+        };
         
         //actions when dropdowns change
         eventSelect.on('change', function(e, eventName) {
