@@ -103,14 +103,15 @@
             
             //retrieve the data for the graph
             function totalValues(eventSelected, propertySelected) {
+              var query = {};
               var params =  $.extend({}, dates, {
                 'type': typeName,
                 'interval': getInterval(dates)
               });
               MP.api.segment(eventSelected, propertySelected, params).done(function(results) {
-                var query = results.values()
-                return query;
-              });
+                query = results.values()
+              }); 
+              return query;
             };
             
             
