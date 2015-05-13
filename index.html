@@ -93,24 +93,24 @@
             //
             function runCount(eveList, propList) {
               var queryList = [];
-              var params =  $.extend({}, dates, {
-                'type': typeName,
-                'interval': getInterval(dates)
-              });
-              _.each(propList, function(property) {
-                _.each(eventList, function(event) {
+              _.each(eventList, function(event) {
+                _.each(propList, function(property) {
+                  var params =  $.extend({}, dates, {
+                    'type': typeName,
+                    'interval': getInterval(dates),
+                    'where': 'properties[\"' + propName + '\"] ==' + property +'\'' 
+                  });
                   queryList.push(MP.api.segment(event, property, params));
                 });
               });
               
               Promise.all(queryList).then(function(promiseList){
                 _.each(promiseList, function(promise){
+                  console.log(promise);
                   
-                  _.each(propList, function(property) {
-                    _.each(eventList, function(event) {
-                      if (!output[event]) {
-                        output[event] = {};
-                      };
+                  _.each(eventList, function(event) {
+                    output[event] = {};
+                    _.each(propList, function(property) {
                       var data = promise.values()["undefined"];
                       var sum = 0;
                       _.each(_.keys(data), function(date) {
