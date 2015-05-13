@@ -69,6 +69,19 @@
           //set parameters for multisegmentation API
           if (eventName && propName) {
             var dates = getDates();
+            var propertyList = getTopTenProperties();
+            debugger;
+            
+            $.when(propertyList).done(function(properties) {
+              debugger;
+              _.each(properties, function(property) {
+                debugger;
+                _.each(eventList, function(event) {
+                  debugger;
+                  getData (event, property);
+                });
+              });
+            });
             
             //get the top ten properties
             function getTopTenProperties() {
@@ -85,6 +98,7 @@
                   list.push(property);
                   debugger;
                 });
+                console.log(list)
                 return list;
               });
             };
@@ -104,19 +118,6 @@
             };
             
             
-            //
-            var propertyList = getTopTenProperties();
-            debugger;
-            $.when(propertyList).done(function(properties) {
-              debugger;
-              _.each(properties, function(property) {
-                debugger;
-                _.each(eventList, function(event) {
-                  debugger;
-                  getData (event, property);
-                });
-              });
-            });
             
             
             
