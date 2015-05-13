@@ -75,7 +75,6 @@
             //access the API to grab the data
             function getData() {
               var output = {};
-              getProperties();
               getProperties().done(runCount(eventList, propertyList))
 
             };
@@ -83,7 +82,7 @@
               
             
             //retrieve top property data
-            function getProperties() {
+            var getProperties = function() {
               var r = $.Deferred();
               var params =  $.extend({}, dates, {
                 'limit' : 10,
@@ -102,7 +101,7 @@
             };
             
             //
-            function runCount(eveList, propList) {
+            var runCount = function(eveList, propList) {
               debugger;
               _.each(propList, function(property) {
                 debugger;
