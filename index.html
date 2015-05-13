@@ -102,16 +102,19 @@
               _.each(propList, function(property) {
                 _.each(eventList, function(event) {
                   MP.api.segment(event, property, params).done(function(results) {
-                    var data = results.values()["undefined"]
-                    _.each(_.keys(data), function(counts) {
-                      debugger;
+                    if (!output[event]) {
+                      output[event] = {};
+                    };
+                    
+                    var data = results.values()["undefined"];
+                    var sum = 0;
+                    _.each(_.keys(data), function(date) {
+                      sum = sum + data[date]
                     });
-                    
-                    
-                    var date = Object.keys(data)
-                    //output[event] = 
-                    debugger;
-                  }); 
+                      
+                    output[event][property] = sum
+                    console.log(output)
+                  });
                 });
              });
             };
