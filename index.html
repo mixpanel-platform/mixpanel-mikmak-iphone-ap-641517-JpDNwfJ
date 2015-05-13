@@ -43,7 +43,6 @@
         });
         
         //Set global variables
-        var propertyList = [];
         var eventList = ['Video Played', 'Faved', 'Added to Cart' ];
         
         //convenience method for grabbing that datepicker value
@@ -67,13 +66,14 @@
           //set parameters for multisegmentation API
           if (eventName && propName) {
             var dates = getDates();
-            getTopTenProperties();
-            debugger;
-            _.each(propertyList, function(property) {
-              debugger;
-              _.each(eventList, function(event) {
+            var propertyList = getTopTenProperties();
+            
+            $.when(propertyList).done(function(propertyList) {
+              _.each(propertyList, function(property) {
                 debugger;
-                getData (event, property);
+                _.each(eventList, function(event) {
+                  debugger;
+                  getData (event, property);
               });
             });
             
@@ -84,13 +84,15 @@
                 'interval': getInterval(dates)
               });
               MP.api.propertyValues(eventName, propName, params).done(function(results) {
+                var list = []
                 var query = results.values();
                 var propertyList = [];
                 _.each(_.keys(query), function(properties){
                   var property = query[properties];
-                  propertyList.push(property);
+                  list.push(property);
                   debugger;
                 });
+                return list;
               });
             };
             
