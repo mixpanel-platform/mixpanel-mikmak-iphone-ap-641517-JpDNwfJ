@@ -79,17 +79,9 @@
                 'limit' : 10,
                 'interval': getInterval(dates)
               });
-              var propertyList = MP.api.propertyValues(eventName, propName, params).done(function(results) {
-                var list = [];
-                var query = results.values();
-                _.each(_.keys(query), function(properties){
-                  var property = query[properties];
-                  list.push(property);
-                });
-                return(list)
-                console.log(list)
-              });
-              $.when(propertyList).done(function(properties, list) {
+              var propertyList = getProperties();
+              
+              $.when(propertyList).done(function(properties) {
                 debugger;
                 _.each(propertyList, function(property) {
                   var prop = property;
@@ -104,7 +96,21 @@
               
             };
             
-            //retrieve the data for the graph
+            //retrieve top property data
+            function getProperties {
+              MP.api.propertyValues(eventName, propName, params).done(function(results) {
+                var list = [];
+                var query = results.values();
+                _.each(_.keys(query), function(properties){
+                  var property = query[properties];
+                  list.push(property);
+                });
+                return(list);
+                console.log(list);
+              });
+            };
+            
+            //retrieve count data
             function totalValues(eventSelected, propertySelected) {
               var query = [];
               var params =  $.extend({}, dates, {
