@@ -93,8 +93,6 @@
             //
             function runCount(eveList, propList) {
               var queryList = [];
-              console.log(eveList);
-              console.log(propList);
               var params =  $.extend({}, dates, {
                 'type': typeName,
                 'interval': getInterval(dates)
@@ -123,6 +121,7 @@
                       console.log(property)
                       console.log(output)
                     });
+                    debugger;
                   
                   });
                 });
