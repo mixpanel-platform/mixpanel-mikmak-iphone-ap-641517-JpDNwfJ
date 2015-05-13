@@ -67,8 +67,9 @@
           if (eventName && propName) {
             var dates = getDates();
             var propertyList = getTopTenProperties();
-            
+            debugger;
             $.when(propertyList).done(function(propertyList) {
+              debugger;
               _.each(propertyList, function(property) {
                 debugger;
                 _.each(eventList, function(event) {
