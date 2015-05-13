@@ -75,39 +75,29 @@
             //access the API to grab the data
             function getData() {
               var output = {};
-              // getProperties().done(runCount(eventList, propertyList));
-              getProperties().done(function(data){
+              var params =  $.extend({}, dates, {
+                'limit' : 10,
+                'interval': getInterval(dates)
+              });
+              MP.api.propertyValues(eventName, propName, params).done(function(data){
                 var results = data.values();
                  _.each(_.keys(results), function(properties){
                   var property = results[properties];
                   propertyList.push(property);
-                
                 });
-                
                 runCount(eventList, propertyList)
               })          
             };
               
             
-            //retrieve top property data
-            function getProperties() {
-              var params =  $.extend({}, dates, {
-                'limit' : 10,
-                'interval': getInterval(dates)
-              });
-              return MP.api.propertyValues(eventName, propName, params);
-              
-            };
-            
             //
             function runCount(eveList, propList) {
+              var apiList = [];
               console.log(eveList);
               console.log(propList);
-              debugger;
               _.each(propList, function(property) {
-                debugger;
                 _.each(eventList, function(event) {
-                  var results = totalValues (event, property);
+                  var results = totalValues(event, property);
                   debugger;
                 });
              });
