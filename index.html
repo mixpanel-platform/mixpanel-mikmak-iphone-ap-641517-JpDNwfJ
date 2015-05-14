@@ -85,11 +85,11 @@
                   var property = results[properties];
                   propertyList.push(property);
                 });
-                runCount(eventList, propertyList).done(function(){
+                runCount(eventList, propertyList)/*.done(function(){
                   console.log(output);
                   eventGraph.MPChart('setData', output);
                   eventTable.MPTable('setData', output);
-                })
+                })*/
               })          
             };
               
@@ -113,8 +113,11 @@
                       sum = sum + result[date];
                     });
                     output[event][property] = sum;
+                    debugger;
                   });
+                  debugger;
                 });
+                debugger;
               });
               
               /*Promise.all(queryList).then(function(promiseList){
