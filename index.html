@@ -113,7 +113,7 @@
                     counter += 1;
                     if (counter == eventList.length * propList.length){
                       console.log(output);
-                      eventGraph.MPChart('setData', output);
+                      eventStackedGraph.MPChart('setData', output);  
                       eventTable.MPTable('setData', output);
                     }
                   });
