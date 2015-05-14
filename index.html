@@ -85,18 +85,15 @@
                   var property = results[properties];
                   propertyList.push(property);
                 });
-                runCount(eventList, propertyList)/*.done(function(){
-                  console.log(output);
-                  eventGraph.MPChart('setData', output);
-                  eventTable.MPTable('setData', output);
-                })*/
-              })          
+                runCount(eventList, propertyList)
+              });          
             };
               
             
             //
             function runCount(eveList, propList) {
               //var queryList = [];
+              var counter = 0;
               _.each(eventList, function(event) {
                 output[event] = {};
                 _.each(propList, function(property) {
@@ -113,11 +110,14 @@
                       sum = sum + result[date];
                     });
                     output[event][property] = sum;
-                    debugger;
+                    counter += 1;
+                    if (counter == eventList.length * propList.length){
+                      console.log(output);
+                      eventGraph.MPChart('setData', output);
+                      eventTable.MPTable('setData', output);
+                    }
                   });
-                  debugger;
                 });
-                debugger;
               });
               
               /*Promise.all(queryList).then(function(promiseList){
