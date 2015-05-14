@@ -103,6 +103,7 @@
                   });
                   //queryList.push(MP.api.segment(event, property, params));
                   MP.api.segment(event, property, params).done(function(data){
+                    debugger;
                     var result = data.values()["undefined"];
                     var sum = 0;
                     _.each(_.keys(result), function(date) {
@@ -112,6 +113,7 @@
                   });
                 });
                 console.log(output)
+                debugger;
               });
               
               /*Promise.all(queryList).then(function(promiseList){
