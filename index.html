@@ -92,19 +92,28 @@
             
             //
             function runCount(eveList, propList) {
-              var queryList = [];
+              //var queryList = [];
               _.each(eventList, function(event) {
+                output[event] = {};
                 _.each(propList, function(property) {
                   var params =  $.extend({}, dates, {
                     'type': typeName,
                     'interval': getInterval(dates),
                     'where': '\"' + property + '\" in string(properties[\"' + propName +'\"])' 
                   });
-                  queryList.push(MP.api.segment(event, property, params));
+                  //queryList.push(MP.api.segment(event, property, params));
+                  MP.api.segment(event, property, params).done(function(data){
+                    var result = data.values()["undefined"];
+                    var sum = 0;
+                    _.each(_.keys(result), function(date) {
+                      sum = sum + result[date];
+                    });
+                    output[event][property] = sum;
+                  })
                 });
               });
               
-              Promise.all(queryList).then(function(promiseList){
+              /*Promise.all(queryList).then(function(promiseList){
                 _.each(promiseList, function(promise){
                   console.log(promise);
                   
@@ -124,7 +133,7 @@
                     debugger;
                   
                   });
-                });
+                });*/
                 
               });
               console.log(output)
