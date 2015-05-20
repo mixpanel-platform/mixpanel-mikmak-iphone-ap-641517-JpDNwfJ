@@ -120,10 +120,10 @@
                           'where': '\"' + property + '\" in string(properties[\"' + propName +'\"]) and number(properties["Time Watched"]) > 9' 
                         });
                         MP.api.segment('Video Played', property, param).done(function(query){
-                          var results = query.values()["undefined"];
-                          console.log(results);
+                          var queryResult = query.values()["undefined"];
+                          console.log(queryResult);
                           var sum = 0;
-                          _.each(_.keys(results), function(date) {
+                          _.each(_.keys(queryResult), function(date) {
                             sum = sum + result[date];
                           });
                           console.log(sum)
