@@ -112,7 +112,17 @@
                     output[event][property] = sum;
                     counter += 1;
                     if (counter == eventList.length * propList.length){
+                      var params =  $.extend({}, dates, {
+                        'type': typeName,
+                        'interval': getInterval(dates),
+                        'where': '\"' + property + '\" in string(properties[\"' + propName +'\"])' 
+                      });
+                      MP.api.segment('Video Played', property, params).done(function(data){
+                        var result = data.values()["undefined"];
+                      
+                      
                       console.log(output);
+                      
                       eventStackedGraph.MPChart('setData', output);  
                       eventTable.MPTable('setData', output);
                     }
