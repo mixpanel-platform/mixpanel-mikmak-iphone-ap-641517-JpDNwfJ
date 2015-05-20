@@ -8,7 +8,7 @@
   <body class="mixpanel-platform-body">
     <div class="mixpanel-platform-section">
       <div class="titles">
-        <h1 style="font-size: 18px; color: rgb(95,105,131)">Segmentation of Events by Top SKU</h1><br/>
+        <h1 style="font-size: 18px; color: rgb(95,105,131)">Segmentation of 'Video Played', 'Video Played: Time watched >= 10', 'Faved', and 'Added to Cart' Events by Top 10 properties selected</h1><br/>
       </div>
       
       <div id="eventSelect" style="float: left;"></div>
@@ -112,7 +112,7 @@
                     if (counter == eventList.length * propList.length){
                       var queryCounter = 0;
                       _.each(propList, function(property) {
-                        output['Video Played - Time watched >= 10'] = {};
+                        output['Video Played: Time watched >= 10'] = {};
                         var param =  $.extend({}, dates, {
                           'type': typeName,
                           'interval': getInterval(dates),
@@ -126,7 +126,7 @@
                             querySum = querySum + queryResult[date];
                           });
                           console.log(querySum)
-                          output['Video Played - Time watched >= 10'][property] = querySum;
+                          output['Video Played: Time watched >= 10'][property] = querySum;
                           queryCounter += 1;
                           
                           //graphing results
