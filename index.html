@@ -122,9 +122,9 @@
                         MP.api.segment('Video Played', property, param).done(function(query){
                           var queryResult = query.values()["undefined"];
                           console.log(queryResult);
-                          var sum = 0;
+                          var querySum = 0;
                           _.each(_.keys(queryResult), function(date) {
-                            sum = sum + result[date];
+                            querySum = querySum + queryResult[date];
                           });
                           console.log(sum)
                           output['Video Played - Time watched > 9'][property] = sum;
