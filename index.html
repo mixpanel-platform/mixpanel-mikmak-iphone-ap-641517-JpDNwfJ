@@ -112,19 +112,21 @@
                     output[event][property] = sum;
                     counter += 1;
                     if (counter == eventList.length * propList.length){
-                      output['Video Played - Time watched > 9'] = {};
-                      var param =  $.extend({}, dates, {
-                        'type': typeName,
-                        'interval': getInterval(dates),
-                        'where': '\"' + property + '\" in string(properties[\"' + propName +'\"]) and number(properties["Time Watched"]) > 9' 
-                      });
-                      MP.api.segment('Video Played', property, param).done(function(query){
-                        var results = query.values()["undefined"];
-                        var sum = 0;
-                        _.each(_.keys(result), function(date) {
-                          sum = sum + result[date];
+                      _.each(propList, function(property) {
+                        output['Video Played - Time watched > 9'] = {};
+                        var param =  $.extend({}, dates, {
+                          'type': typeName,
+                          'interval': getInterval(dates),
+                          'where': '\"' + property + '\" in string(properties[\"' + propName +'\"]) and number(properties["Time Watched"]) > 9' 
                         });
-                        output['Video Played - Time watched > 9'][property] = sum;
+                        MP.api.segment('Video Played', property, param).done(function(query){
+                          var results = query.values()["undefined"];
+                          var sum = 0;
+                          _.each(_.keys(result), function(date) {
+                            sum = sum + result[date];
+                          });
+                          output['Video Played - Time watched > 9'][property] = sum;
+                        });
                       });
                       
                       console.log(output);
