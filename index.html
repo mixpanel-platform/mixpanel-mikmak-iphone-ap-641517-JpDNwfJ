@@ -121,6 +121,7 @@
                         });
                         MP.api.segment('Video Played', property, param).done(function(query){
                           var results = query.values()["undefined"];
+                          console.log(results);
                           var sum = 0;
                           _.each(_.keys(results), function(date) {
                             sum = sum + result[date];
