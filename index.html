@@ -112,6 +112,7 @@
                     output[event][property] = sum;
                     counter += 1;
                     if (counter == eventList.length * propList.length){
+                      var queryCounter = 0;
                       _.each(propList, function(property) {
                         output['Video Played - Time watched > 9'] = {};
                         var param =  $.extend({}, dates, {
@@ -128,14 +129,17 @@
                           });
                           console.log(querySum)
                           output['Video Played - Time watched > 9'][property] = querySum;
+                          queryCounter += 1;
                         });
                       });
                       
-                      console.log(output);
-                      
-                      eventStackedGraph.MPChart('setData', output);  
-                      eventTable.MPTable('setData', output);
-                    }
+                      if (queryCounter == propList.length){
+                        console.log(output);
+                        
+                        eventStackedGraph.MPChart('setData', output);  
+                        eventTable.MPTable('setData', output);
+                      };
+                    };
                   });
                 });
               });
