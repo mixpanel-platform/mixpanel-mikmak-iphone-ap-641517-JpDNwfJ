@@ -122,17 +122,14 @@
                         });
                         MP.api.segment('Video Played', property, param).done(function(query){
                           var queryResult = query.values()["undefined"];
-                          console.log(queryResult);
                           var querySum = 0;
                           _.each(_.keys(queryResult), function(date) {
                             querySum = querySum + queryResult[date];
                           });
-                          console.log(querySum)
                           output['Video Played - Time watched > 9'][property] = querySum;
                           queryCounter += 1;
                           if (queryCounter == propList.length){
                             console.log(output);
-                            
                             eventStackedGraph.MPChart('setData', output);  
                             eventTable.MPTable('setData', output);
                           };
@@ -144,31 +141,6 @@
                   });
                 });
               });
-              
-              /*Promise.all(queryList).then(function(promiseList){
-                _.each(promiseList, function(promise){
-                  console.log(promise);
-                  
-                  _.each(eventList, function(event) {
-                    output[event] = {};
-                    _.each(propList, function(property) {
-                      var data = promise.values()["undefined"];
-                      var sum = 0;
-                      _.each(_.keys(data), function(date) {
-                        sum = sum + data[date];
-                      });
-                      output[event][property] = sum;
-                      console.log(event)
-                      console.log(property)
-                      console.log(output)
-                    });
-                    debugger;
-                  
-                  });
-                });*/
-              
-              console.log(output)
-              debugger;
             };
             
           };
