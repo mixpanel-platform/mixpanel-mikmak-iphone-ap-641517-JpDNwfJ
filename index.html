@@ -8,7 +8,7 @@
   <body class="mixpanel-platform-body">
     <div class="mixpanel-platform-section">
       <div class="titles">
-        <h1 style="font-size: 18px; color: rgb(95,105,131)">Multilevel-Segmentation Report</h1><br/>
+        <h1 style="font-size: 18px; color: rgb(95,105,131)">Segmentation of Events by Top SKU</h1><br/>
       </div>
       
       <div id="eventSelect" style="float: left;"></div>
@@ -44,7 +44,7 @@
         
         //set global variables
         var propertyList = [];
-        var eventList = ['Video Played', 'Faved', 'Added to Cart' ];
+        var eventList = ['Video Played', 'Faved', 'Added to Cart' ]; 
         var output = {};
         
         //convenience method for grabbing that datepicker value
@@ -58,9 +58,6 @@
           return intervalDays;
         };
         
-        
-        
-        
         var runQuery = function() {
           //obtain event, property, date range and type values
           var eventName = eventSelect.MPEventSelect('value'),
@@ -73,7 +70,7 @@
             var dates = getDates();
             getData();
             
-            //access the API to grab the data
+            //access API to get top 10 property values
             function getData() {
               var params =  $.extend({}, dates, {
                 'limit' : 10,
@@ -90,9 +87,9 @@
             };
               
             
-            //
+            //access API to get data
             function runCount(eveList, propList) {
-              //var queryList = [];
+              //accessing API data for events in eventList for top 10 properties
               var counter = 0;
               _.each(eventList, function(event) {
                 output[event] = {};
@@ -102,7 +99,6 @@
                     'interval': getInterval(dates),
                     'where': '\"' + property + '\" in string(properties[\"' + propName +'\"])' 
                   });
-                  //queryList.push(MP.api.segment(event, property, params));
                   MP.api.segment(event, property, params).done(function(data){
                     var result = data.values()["undefined"];
                     var sum = 0;
@@ -111,10 +107,12 @@
                     });
                     output[event][property] = sum;
                     counter += 1;
+                    
+                    //accessing API data for Video Played - Time watched >= 10 event for top 10 properties
                     if (counter == eventList.length * propList.length){
                       var queryCounter = 0;
                       _.each(propList, function(property) {
-                        output['Video Played - Time watched > 9'] = {};
+                        output['Video Played - Time watched >= 10'] = {};
                         var param =  $.extend({}, dates, {
                           'type': typeName,
                           'interval': getInterval(dates),
@@ -122,14 +120,18 @@
                         });
                         MP.api.segment('Video Played', property, param).done(function(query){
                           var queryResult = query.values()["undefined"];
+                          console.log(queryResult);
                           var querySum = 0;
                           _.each(_.keys(queryResult), function(date) {
                             querySum = querySum + queryResult[date];
                           });
-                          output['Video Played - Time watched > 9'][property] = querySum;
+                          console.log(querySum)
+                          output['Video Played - Time watched >= 10'][property] = querySum;
                           queryCounter += 1;
+                          
+                          //graphing results
                           if (queryCounter == propList.length){
-                            console.log(output);
+                            console.log(output); // for debugging purposes
                             eventStackedGraph.MPChart('setData', output);  
                             eventTable.MPTable('setData', output);
                           };
@@ -141,6 +143,31 @@
                   });
                 });
               });
+              
+              /*Promise.all(queryList).then(function(promiseList){
+                _.each(promiseList, function(promise){
+                  console.log(promise);
+                  
+                  _.each(eventList, function(event) {
+                    output[event] = {};
+                    _.each(propList, function(property) {
+                      var data = promise.values()["undefined"];
+                      var sum = 0;
+                      _.each(_.keys(data), function(date) {
+                        sum = sum + data[date];
+                      });
+                      output[event][property] = sum;
+                      console.log(event)
+                      console.log(property)
+                      console.log(output)
+                    });
+                    debugger;
+                  
+                  });
+                });*/
+              
+              console.log(output)
+              debugger;
             };
             
           };
