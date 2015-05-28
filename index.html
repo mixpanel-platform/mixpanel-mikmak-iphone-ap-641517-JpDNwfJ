@@ -121,12 +121,10 @@
                         });
                         MP.api.segment('Video Played', property, param).done(function(query){
                           var queryResult = query.values()["undefined"];
-                          console.log(queryResult);
                           var querySum = 0;
                           _.each(_.keys(queryResult), function(date) {
                             querySum = querySum + queryResult[date];
                           });
-                          console.log(querySum)
                           output['Video Played: Time watched >= 10'][property] = querySum;
                           queryCounter += 1;
                           
@@ -144,10 +142,6 @@
                   });
                 });
               });
-
-              
-              console.log(output)
-              debugger;
             };
             
           };
